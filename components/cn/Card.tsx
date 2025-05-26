@@ -1,87 +1,98 @@
 import { cn } from "@/lib/utils";
-import { TextRef, ViewRef } from "@rn-primitives/types";
-import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { Text, View } from "react-native";
-import { TextClassContext } from "../Text";
+import { Pressable, Text, View } from "react-native";
 
-const Card = forwardRef<ViewRef, ComponentPropsWithoutRef<typeof View>>(
-    ({ className, ...props }, ref) => (
-        <View
-            ref={ref}
+interface CardProps {
+    children: React.ReactNode;
+    className?: string;
+    onPress?: () => void;
+    variant?: "default" | "elevated";
+}
+
+export function Card({
+    children,
+    className,
+    onPress,
+    variant = "default",
+}: CardProps) {
+    const baseStyles = "rounded-xl p-4";
+
+    const variants = {
+        default: "bg-white border-2 border-primary-100",
+        elevated: "bg-white border-2 border-b-4 border-primary-200 shadow-lg",
+    };
+
+    const Container = onPress ? Pressable : View;
+
+    return (
+        <Container
+            onPress={onPress}
             className={cn(
-                "rounded-lg border border-border bg-card shadow-sm shadow-foreground/10",
+                baseStyles,
+                variants[variant],
+                onPress && "active:translate-y-1",
                 className
             )}
-            {...props}
-        />
-    )
-);
-Card.displayName = "Card";
+        >
+            {children}
+        </Container>
+    );
+}
 
-const CardHeader = forwardRef<ViewRef, ComponentPropsWithoutRef<typeof View>>(
-    ({ className, ...props }, ref) => (
-        <View
-            ref={ref}
-            className={cn("flex flex-col space-y-1.5 p-6", className)}
-            {...props}
-        />
-    )
-);
-CardHeader.displayName = "CardHeader";
+interface CardHeaderProps {
+    children: React.ReactNode;
+    className?: string;
+}
 
-const CardTitle = forwardRef<TextRef, ComponentPropsWithoutRef<typeof Text>>(
-    ({ className, ...props }, ref) => (
+export function CardHeader({ children, className }: CardHeaderProps) {
+    return <View className={cn("mb-2", className)}>{children}</View>;
+}
+
+interface CardTitleProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
+export function CardTitle({ children, className }: CardTitleProps) {
+    return (
         <Text
-            role="heading"
-            aria-level={3}
-            ref={ref}
-            className={cn(
-                "text-2xl text-card-foreground font-semibold leading-none tracking-tight",
-                className
-            )}
-            {...props}
-        />
-    )
-);
-CardTitle.displayName = "CardTitle";
+            className={cn("text-lg font-semibold text-primary-900", className)}
+        >
+            {children}
+        </Text>
+    );
+}
 
-const CardDescription = forwardRef<
-    TextRef,
-    React.ComponentPropsWithoutRef<typeof Text>
->(({ className, ...props }, ref) => (
-    <Text
-        ref={ref}
-        className={cn("text-sm text-muted-foreground", className)}
-        {...props}
-    />
-));
-CardDescription.displayName = "CardDescription";
+interface CardDescriptionProps {
+    children: React.ReactNode;
+    className?: string;
+}
 
-const CardContent = forwardRef<ViewRef, ComponentPropsWithoutRef<typeof View>>(
-    ({ className, ...props }, ref) => (
-        <TextClassContext.Provider value="text-card-foreground">
-            <View ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-        </TextClassContext.Provider>
-    )
-);
-CardContent.displayName = "CardContent";
+export function CardDescription({ children, className }: CardDescriptionProps) {
+    return (
+        <Text className={cn("text-sm text-primary-600 font-sans", className)}>
+            {children}
+        </Text>
+    );
+}
 
-const CardFooter = forwardRef<ViewRef, ComponentPropsWithoutRef<typeof View>>(
-    ({ className, ...props }, ref) => (
-        <View
-            ref={ref}
-            className={cn("flex flex-row items-center p-6 pt-0", className)}
-            {...props}
-        />
-    )
-);
-CardFooter.displayName = "CardFooter";
+interface CardContentProps {
+    children: React.ReactNode;
+    className?: string;
+}
 
-export {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-};
+export function CardContent({ children, className }: CardContentProps) {
+    return <View className={cn("mt-2", className)}>{children}</View>;
+}
+
+interface CardFooterProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
+export function CardFooter({ children, className }: CardFooterProps) {
+    return (
+        <View className={cn("mt-4 flex-row justify-end gap-2", className)}>
+            {children}
+        </View>
+    );
+}

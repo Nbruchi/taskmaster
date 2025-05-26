@@ -1,50 +1,145 @@
-# Welcome to your Expo app 👋
+# 📱 TaskMaster
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<div align="center">
 
-## Get started
+![Expo](https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=expo&logoColor=white)
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-1. Install dependencies
+A modern task management application built with Expo and React Native, featuring a beautiful 3D-styled UI and seamless user experience.
 
-   ```bash
-   npm install
-   ```
+</div>
 
-2. Start the app
+## ✨ Features
 
-   ```bash
-   npx expo start
-   ```
+-   📋 **Task Management**
 
-In the output, you'll find options to open the app in a
+    -   Create, edit, and delete tasks
+    -   Mark tasks as complete/incomplete
+    -   Filter and sort tasks
+    -   Search functionality
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+-   👥 **User Management**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+    -   View user profiles
+    -   Track user's tasks
+    -   Task statistics
 
-## Get a fresh project
+-   🎨 **Modern UI**
+    -   3D-styled components
+    -   Smooth animations
+    -   Intuitive navigation
+    -   Responsive design
 
-When you're ready, run:
+## 🛠️ Tech Stack
+
+-   **Framework:** [Expo](https://expo.dev/)
+-   **UI Library:** [React Native](https://reactnative.dev/)
+-   **Styling:** [NativeWind](https://www.nativewind.dev/)
+-   **Navigation:** [Expo Router](https://docs.expo.dev/router/introduction/)
+-   **API:** [JSONPlaceholder](https://jsonplaceholder.typicode.com/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Font:** [Poppins](https://fonts.google.com/specimen/Poppins)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+-   Node.js (v14 or higher)
+-   npm or yarn
+-   Expo CLI
+-   iOS Simulator (for Mac) or Android Emulator
+
+### Installation
+
+1. Clone the repository
 
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/taskmaster.git
+cd taskmaster
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies
 
-## Learn more
+```bash
+npm install
+# or
+yarn install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Start the development server
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+4. Run on your preferred platform
 
-Join our community of developers creating universal apps.
+```bash
+# For iOS
+npx expo run:ios
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# For Android
+npx expo run:android
+```
+
+## 📱 Screenshots
+
+_Coming soon_
+
+## 🎨 Design System
+
+### Colors
+
+-   Primary: `#9333ea` (Purple)
+-   Secondary: `#e9d5ff` (Light Purple)
+-   Background: `#ffffff` (White)
+-   Text: `#581c87` (Dark Purple)
+-   Accent: `#f3e8ff` (Light Purple)
+
+### Typography
+
+-   Font Family: Poppins
+-   Weights: Regular, Medium, SemiBold, Bold, ExtraBold
+-   Sizes: sm, base, lg, xl
+
+## 📦 Project Structure
+
+```
+taskmaster/
+├── app/                # Main application screens
+├── components/         # Reusable components
+│   ├── cn/            # NativeWind components
+│   └── ui/            # Custom UI components
+├── assets/            # Static assets
+│   └── fonts/         # Font files
+├── lib/               # Utility functions
+└── types/             # TypeScript type definitions
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+-   [JSONPlaceholder](https://jsonplaceholder.typicode.com/) for providing the API
+-   [Expo](https://expo.dev/) for the amazing framework
+-   [NativeWind](https://www.nativewind.dev/) for the styling solution
+
+---
+
+<div align="center">
+Made with ❤️ by [Your Name]
+</div>

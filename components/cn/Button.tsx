@@ -1,92 +1,79 @@
 import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import { Pressable } from "react-native";
-import { TextClassContext } from "../Text";
+import { Pressable, Text } from "react-native";
 
-const buttonVariants = cva(
-    "group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-ring web:focus-visible:ring-offset-0",
-    {
-        variants: {
-            variant: {
-                default: "bg-primary web:hover:opacity-90 active:opacity-90",
-                destructive:
-                    "bg-destructive web:hover:opacity-90 active:opacity-90",
-                outline:
-                    "border border-input bg-background web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent",
-                secondary:
-                    "bg-secondary web:hover:opacity-80 active:opacity-80",
-                ghost: "web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent",
-                link: "web:underline-offset-4 web:hover:underline web:focus:underline ",
-            },
-            size: {
-                default: "h-10 px-4 py-2 native:h-12 native:px-5 native:py-3",
-                sm: "h-9 rounded-md px-3",
-                lg: "h-11 rounded-md px-8 native:h-14",
-                icon: "h-10 w-10",
-            },
-        },
-        defaultVariants: {
-            variant: "default",
-            size: "default",
-        },
-    }
-);
+interface ButtonProps {
+    onPress: () => void;
+    children: React.ReactNode;
+    variant?:
+        | "default"
+        | "destructive"
+        | "outline"
+        | "secondary"
+        | "ghost"
+        | "link";
+    size?: "default" | "sm" | "lg" | "icon";
+    className?: string;
+    disabled?: boolean;
+}
 
-const buttonTextVariants = cva(
-    "web:whitespace-nowrap text-sm native:text-base font-medium text-foreground web:transition-colors",
-    {
-        variants: {
-            variant: {
-                default: "text-primary-foreground",
-                destructive: "text-destructive-foreground",
-                outline: "group-active:text-accent-foreground",
-                secondary:
-                    "text-secondary-foreground group-active:text-secondary-foreground",
-                ghost: "group-active:text-accent-foreground",
-                link: "text-primary group-active:underline",
-            },
-            size: {
-                default: "",
-                sm: "",
-                lg: "native:text-lg",
-                icon: "",
-            },
-        },
-        defaultVariants: {
-            variant: "default",
-            size: "default",
-        },
-    }
-);
+export function Button({
+    onPress,
+    children,
+    variant = "default",
+    size = "default",
+    className,
+    disabled = false,
+}: ButtonProps) {
+    const baseStyles = "rounded-lg active:translate-y-1";
 
-type ButtonProps = ComponentPropsWithoutRef<typeof Pressable> &
-    VariantProps<typeof buttonVariants>;
+    const variants = {
+        default: "bg-primary-600 border-2 border-b-4 border-primary-800",
+        destructive: "bg-red-600 border-2 border-b-4 border-red-800",
+        outline: "bg-transparent border-2 border-primary-600",
+        secondary: "bg-primary-100 border-2 border-b-4 border-primary-300",
+        ghost: "bg-transparent",
+        link: "bg-transparent underline",
+    };
 
-const Button = forwardRef<ElementRef<typeof Pressable>, ButtonProps>(
-    ({ className, variant, size, ...props }, ref) => {
-        return (
-            <TextClassContext.Provider
-                value={buttonTextVariants({
-                    variant,
-                    size,
-                    className: "web:pointer-events-none",
-                })}
+    const sizes = {
+        default: "px-4 py-3",
+        sm: "px-3 py-2",
+        lg: "px-6 py-4",
+        icon: "p-3",
+    };
+
+    const textColors = {
+        default: "text-white font-medium",
+        destructive: "text-white font-medium",
+        outline: "text-primary-600 font-medium",
+        secondary: "text-primary-900 font-medium",
+        ghost: "text-primary-600 font-medium",
+        link: "text-primary-600 font-medium underline",
+    };
+
+    return (
+        <Pressable
+            onPress={onPress}
+            disabled={disabled}
+            className={cn(
+                baseStyles,
+                variants[variant],
+                sizes[size],
+                disabled && "opacity-50",
+                className
+            )}
+        >
+            <Text
+                className={cn(
+                    "text-center",
+                    textColors[variant],
+                    size === "sm" && "text-sm",
+                    size === "default" && "text-base",
+                    size === "lg" && "text-lg"
+                )}
             >
-                <Pressable
-                    className={cn(
-                        props.disabled && "opacity-50 web:pointer-events-none",
-                        buttonVariants({ variant, size, className })
-                    )}
-                    ref={ref}
-                    role="button"
-                    {...props}
-                />
-            </TextClassContext.Provider>
-        );
-    }
-);
-Button.displayName = "Button";
-
-export { Button, buttonTextVariants, buttonVariants };
-export type { ButtonProps };
+                {children}
+            </Text>
+        </Pressable>
+    );
+}
