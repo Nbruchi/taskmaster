@@ -1,14 +1,22 @@
-// app/(tabs)/todos.tsx
 import { Button } from "@/components/cn/Button";
 import { TodoList } from "@/components/common/TodoList";
 import { apiService } from "@/lib/api";
 import { useUser } from "@/lib/UserContext";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Text, View, useColorScheme } from "react-native";
+import {
+    RefreshControl,
+    ScrollView,
+    Text,
+    TextInput,
+    View,
+    useColorScheme,
+} from "react-native";
 
 export default function TodosScreen() {
     const [todos, setTodos] = useState<Todo[]>([]);
+    const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+    const [searchQuery, setSearchQuery] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const colorScheme = useColorScheme();
     const { currentUser } = useUser();
@@ -20,6 +28,7 @@ export default function TodosScreen() {
             setIsLoading(true);
             const data = await apiService.getUserTodos(currentUser.id);
             setTodos(data);
+            setFilteredTodos(data);
         } catch (error) {
             console.error("Error fetching todos:", error);
         } finally {
@@ -31,6 +40,17 @@ export default function TodosScreen() {
         fetchTodos();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]); // Refetch when user changes
+
+    useEffect(() => {
+        if (searchQuery.trim() === "") {
+            setFilteredTodos(todos);
+        } else {
+            const filtered = todos.filter((todo) =>
+                todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilteredTodos(filtered);
+        }
+    }, [searchQuery, todos]);
 
     const handleTodoPress = (todo: Todo) => {
         router.push(`/todo/${todo.id}`);
@@ -72,23 +92,49 @@ export default function TodosScreen() {
                 colorScheme === "dark" ? "bg-gray-900" : "bg-gray-50"
             }`}
         >
-            <View className="flex-1">
-                <TodoList
-                    todos={todos}
-                    isLoading={isLoading}
-                    onTodoPress={handleTodoPress}
-                    onDeletePress={handleDeletePress}
-                    onToggleComplete={handleToggleComplete}
+            <View className="p-4">
+                <TextInput
+                    className={`p-4 rounded-lg border mb-4 ${
+                        colorScheme === "dark"
+                            ? "bg-gray-800 text-white border-gray-700"
+                            : "bg-white text-black border-gray-300"
+                    }`}
+                    placeholder="Search todos..."
+                    placeholderTextColor={
+                        colorScheme === "dark" ? "#9CA3AF" : "#6B7280"
+                    }
+                    value={searchQuery}
+                    onChangeText={setSearchQuery}
                 />
-                <View className="p-4">
-                    <Button
-                        variant="default"
-                        onPress={() => router.push("/create-todo")}
-                    >
-                        Add New Todo
-                    </Button>
-                </View>
             </View>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={isLoading}
+                        onRefresh={fetchTodos}
+                        colors={["#9333ea"]} // Purple color to match theme
+                        tintColor={colorScheme === "dark" ? "#fff" : "#9333ea"}
+                    />
+                }
+            >
+                <View className="flex-1">
+                    <TodoList
+                        todos={filteredTodos}
+                        isLoading={isLoading}
+                        onTodoPress={handleTodoPress}
+                        onDeletePress={handleDeletePress}
+                        onToggleComplete={handleToggleComplete}
+                    />
+                    <View className="p-4">
+                        <Button
+                            variant="default"
+                            onPress={() => router.push("/create-todo")}
+                        >
+                            Add New Todo
+                        </Button>
+                    </View>
+                </View>
+            </ScrollView>
         </View>
     );
 }
