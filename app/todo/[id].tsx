@@ -39,9 +39,11 @@ export default function TodoDetailsScreen() {
             setIsLoading(true);
             const updatedTodo = await apiService.updateTodo(todo.id, {
                 title: editedTitle.trim(),
+                completed: todo.completed, // Preserve the completion status
             });
             setTodo(updatedTodo);
             setIsEditing(false);
+            router.back(); // Navigate back after successful update
         } catch (error) {
             console.error("Error updating todo:", error);
         } finally {
@@ -77,7 +79,7 @@ export default function TodoDetailsScreen() {
 
     return (
         <View
-            className={`flex-1 ${
+            className={`flex-1 w-full p-10 ${
                 colorScheme === "dark" ? "bg-gray-900" : "bg-gray-50"
             }`}
         >
@@ -110,13 +112,14 @@ export default function TodoDetailsScreen() {
                 >
                     Status: {todo.completed ? "Completed" : "Pending"}
                 </Text>
-                <View className="flex-row space-x-2">
+                <View className="flex flex-row items-center gap-4 mt-4 justify-center w-full">
                     {isEditing ? (
                         <>
                             <Button
                                 variant="default"
                                 onPress={handleUpdate}
                                 disabled={isLoading}
+                                className="w-1/2"
                             >
                                 Save
                             </Button>
@@ -126,6 +129,7 @@ export default function TodoDetailsScreen() {
                                     setIsEditing(false);
                                     setEditedTitle(todo.title);
                                 }}
+                                className="w-1/2"
                             >
                                 Cancel
                             </Button>
@@ -135,6 +139,7 @@ export default function TodoDetailsScreen() {
                             <Button
                                 variant="secondary"
                                 onPress={() => setIsEditing(true)}
+                                className="w-1/2"
                             >
                                 Edit
                             </Button>
@@ -142,6 +147,7 @@ export default function TodoDetailsScreen() {
                                 variant="destructive"
                                 onPress={handleDelete}
                                 disabled={isLoading}
+                                className="w-1/2"
                             >
                                 Delete
                             </Button>

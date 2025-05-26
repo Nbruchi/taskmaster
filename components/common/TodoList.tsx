@@ -1,4 +1,4 @@
-// components/TodoList.tsx
+// components/common/TodoList.tsx
 import { Button } from "@/components/cn/Button";
 import { Card } from "@/components/cn/Card";
 import { Spinner } from "@/components/ui/spinner";
@@ -36,38 +36,38 @@ export function TodoList({
         <FlatList
             data={todos}
             keyExtractor={(item) => item.id.toString()}
-            contentContainerClassName="p-4 space-y-4"
+            contentContainerStyle={{ padding: 16, gap: 16 }}
             renderItem={({ item }) => (
                 <Card
                     variant="elevated"
                     onPress={() => onTodoPress(item)}
-                    className="flex-row items-center justify-between"
+                    className="p-4 mb-4"
                 >
                     <View className="flex-1">
-                        <Text className="text-lg font-medium">
+                        <Text className="text-lg font-medium mb-2">
                             {item.title}
                         </Text>
-                        <Text className="text-sm text-gray-500">
+                        <Text className="text-sm text-gray-500 mb-4">
                             {item.completed ? "Completed" : "Pending"}
                         </Text>
-                    </View>
-                    <View className="flex-row space-x-2">
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onPress={() =>
-                                onToggleComplete(item.id, !item.completed)
-                            }
-                        >
-                            {item.completed ? "Undo" : "Complete"}
-                        </Button>
-                        <Button
-                            variant="destructive"
-                            size="sm"
-                            onPress={() => onDeletePress(item.id)}
-                        >
-                            Delete
-                        </Button>
+                        <View className="flex flex-row justify-end items-center gap-4">
+                            <Button
+                                variant="secondary"
+                                size="sm"
+                                onPress={() =>
+                                    onToggleComplete(item.id, !item.completed)
+                                }
+                            >
+                                {item.completed ? "Undo" : "Complete"}
+                            </Button>
+                            <Button
+                                variant="destructive"
+                                size="sm"
+                                onPress={() => onDeletePress(item.id)}
+                            >
+                                Delete
+                            </Button>
+                        </View>
                     </View>
                 </Card>
             )}

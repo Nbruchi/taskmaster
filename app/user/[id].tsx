@@ -1,7 +1,13 @@
 import { apiService } from "@/lib/api";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Text, View, useColorScheme, FlatList } from "react-native";
+import {
+    FlatList,
+    Text,
+    TouchableOpacity,
+    View,
+    useColorScheme,
+} from "react-native";
 
 export default function UserProfileScreen() {
     const { id } = useLocalSearchParams();
@@ -30,6 +36,10 @@ export default function UserProfileScreen() {
         fetchUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
+
+    const handleTodoPress = (todo: Todo) => {
+        router.push(`/todo/${todo.id}`);
+    };
 
     if (isLoading) {
         return (
@@ -92,12 +102,14 @@ export default function UserProfileScreen() {
                 <FlatList
                     data={userTodos}
                     keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={{ gap: 16 }}
                     renderItem={({ item }) => (
-                        <View
-                            className={`p-4 border-b ${
+                        <TouchableOpacity
+                            onPress={() => handleTodoPress(item)}
+                            className={`p-4 rounded-lg border ${
                                 colorScheme === "dark"
-                                    ? "border-gray-800"
-                                    : "border-gray-200"
+                                    ? "bg-gray-800 border-gray-700"
+                                    : "bg-white border-gray-200"
                             }`}
                         >
                             <Text
@@ -119,7 +131,7 @@ export default function UserProfileScreen() {
                                 Status:{" "}
                                 {item.completed ? "Completed" : "Pending"}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </View>

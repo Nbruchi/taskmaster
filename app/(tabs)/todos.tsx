@@ -4,14 +4,7 @@ import { apiService } from "@/lib/api";
 import { useUser } from "@/lib/UserContext";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-    RefreshControl,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
-    useColorScheme,
-} from "react-native";
+import { Text, TextInput, View, useColorScheme } from "react-native";
 
 export default function TodosScreen() {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -107,34 +100,23 @@ export default function TodosScreen() {
                     onChangeText={setSearchQuery}
                 />
             </View>
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={isLoading}
-                        onRefresh={fetchTodos}
-                        colors={["#9333ea"]} // Purple color to match theme
-                        tintColor={colorScheme === "dark" ? "#fff" : "#9333ea"}
-                    />
-                }
-            >
-                <View className="flex-1">
-                    <TodoList
-                        todos={filteredTodos}
-                        isLoading={isLoading}
-                        onTodoPress={handleTodoPress}
-                        onDeletePress={handleDeletePress}
-                        onToggleComplete={handleToggleComplete}
-                    />
-                    <View className="p-4">
-                        <Button
-                            variant="default"
-                            onPress={() => router.push("/create-todo")}
-                        >
-                            Add New Todo
-                        </Button>
-                    </View>
+            <View className="flex-1">
+                <TodoList
+                    todos={filteredTodos}
+                    isLoading={isLoading}
+                    onTodoPress={handleTodoPress}
+                    onDeletePress={handleDeletePress}
+                    onToggleComplete={handleToggleComplete}
+                />
+                <View className="p-4">
+                    <Button
+                        variant="default"
+                        onPress={() => router.push("/todo/create-todo")}
+                    >
+                        Add New Todo
+                    </Button>
                 </View>
-            </ScrollView>
+            </View>
         </View>
     );
 }

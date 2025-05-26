@@ -1,32 +1,37 @@
-import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
-
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Link, Stack } from "expo-router";
+import React from "react";
+import { Text, View, useColorScheme } from "react-native";
 
 export default function NotFoundScreen() {
-  return (
-    <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen does not exist.</ThemedText>
-        <Link href="/" style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
-        </Link>
-      </ThemedView>
-    </>
-  );
-}
+    const colorScheme = useColorScheme();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-});
+    return (
+        <>
+            <Stack.Screen options={{ title: "Oops!" }} />
+            <View
+                className={`flex-1 items-center justify-center p-5 ${
+                    colorScheme === "dark" ? "bg-gray-900" : "bg-gray-50"
+                }`}
+            >
+                <Text
+                    className={`text-xl font-semibold mb-4 ${
+                        colorScheme === "dark" ? "text-white" : "text-black"
+                    }`}
+                >
+                    This screen does not exist.
+                </Text>
+                <Link href="/" className="mt-4">
+                    <Text
+                        className={`text-lg ${
+                            colorScheme === "dark"
+                                ? "text-purple-400"
+                                : "text-purple-600"
+                        }`}
+                    >
+                        Go to home screen!
+                    </Text>
+                </Link>
+            </View>
+        </>
+    );
+}
