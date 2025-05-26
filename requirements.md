@@ -6,82 +6,82 @@ A mobile application built with Expo/React Native that helps users manage their 
 
 ## Technical Stack
 
--   **Framework**: Expo/React Native
--   **Styling**: NativeWind (Tailwind CSS for React Native)
--   **UI Components**: Custom 3D-styled components
--   **API**: JSONPlaceholder
--   **Navigation**: Expo Router (Tab Navigation)
--   **State Management**: React Context
--   **Font**: Poppins
+- **Framework**: Expo/React Native
+- **Styling**: NativeWind (Tailwind CSS for React Native)
+- **UI Components**: Custom 3D-styled components
+- **API**: JSONPlaceholder
+- **Navigation**: Expo Router (Tab Navigation)
+- **State Management**: React Context
+- **Font**: Poppins
 
 ## Design System
 
 ### Colors
 
--   Primary: Purple (#9333ea)
--   Secondary: Light Purple (#e9d5ff)
--   Background: White
--   Text: Dark Purple (#581c87)
--   Accent: Light Purple (#f3e8ff)
+- Primary: Purple (#9333ea)
+- Secondary: Light Purple (#e9d5ff)
+- Background: White
+- Text: Dark Purple (#581c87)
+- Accent: Light Purple (#f3e8ff)
 
 ### Typography
 
--   Font Family: Poppins
--   Weights: Regular, Medium, SemiBold, Bold, ExtraBold
--   Sizes: sm, base, lg, xl
+- Font Family: Poppins
+- Weights: Regular, Medium, SemiBold, Bold, ExtraBold
+- Sizes: sm, base, lg, xl
 
 ### Components
 
--   3D-styled buttons with bottom border
--   Elevated cards with shadow
--   Consistent spacing and padding
--   Interactive feedback on press
+- 3D-styled buttons with bottom border
+- Elevated cards with shadow
+- Consistent spacing and padding
+- Interactive feedback on press
 
 ## Functional Requirements
 
 ### 1. Task Management
 
--   [ ] View all tasks
--   [ ] Create new tasks
--   [ ] Edit existing tasks
--   [ ] Delete tasks
--   [ ] Mark tasks as complete/incomplete
--   [ ] Search tasks by title
+- [x] View all tasks
+- [x] Create new tasks
+- [x] Edit existing tasks
+- [x] Delete tasks
+- [x] Mark tasks as complete/incomplete
+- [x] Search tasks by title
 
 ### 2. User Management
 
--   [ ] View list of all users
--   [ ] View individual user profiles
--   [ ] Filter tasks by user
+- [x] View list of all users
+- [x] View individual user profiles
+- [x] Filter tasks by user
 
 ### 3. Task Details
 
--   [ ] View task title
--   [ ] Edit task details
--   [ ] Delete task
+- [x] View task title
+- [x] Edit task details
+- [x] Delete task
 
 ## API Integration
 
 ### JSONPlaceholder Endpoints
 
--   `/todos` - Task management
--   `/users` - User management
+- `/todos` - Task management
+- `/users` - User management
 
 ### Data Models
 
 ```typescript
 interface Todo {
-    id: number;
-    userId: number;
-    title: string;
-    completed: boolean;
+  id: number;
+  userId: number;
+  title: string;
+  completed: boolean;
 }
 
 interface User {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
+  id: number;
+  name: string;
+  username: string;
+  email: string;
 }
 ```
 
@@ -91,18 +91,18 @@ interface User {
 
 1. **Home Tab**
 
-    - Task list
-    - Task creation
-    - Task filtering
-    - Search functionality
+   - Task list
+   - Task creation
+   - Task filtering
+   - Search functionality
 
 2. **Users Tab**
 
-    - User list
-    - User details
-    - User's tasks
+   - User list
+   - User details
+   - User's tasks
 
 3. **Profile Tab**
-    - User profile
-    - Task statistics
-    - Settings
+   - User profile
+   - Task statistics
+   - Settings
