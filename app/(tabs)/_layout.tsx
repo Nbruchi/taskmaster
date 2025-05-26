@@ -1,7 +1,7 @@
 // app/(tabs)/_layout.tsx
 import { Tabs } from "expo-router";
+import { Home, ListTodo, User, Users } from "lucide-react-native";
 import { useColorScheme } from "react-native";
-import { Home, ListTodo, User } from "lucide-react-native";
 
 export default function TabsLayout() {
     const colorScheme = useColorScheme();
@@ -36,6 +36,15 @@ export default function TabsLayout() {
                     title: "Todos",
                     tabBarIcon: ({ color }) => (
                         <ListTodo size={24} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="users"
+                options={{
+                    title: "Users",
+                    tabBarIcon: ({ color }) => (
+                        <Users size={24} color={color} />
                     ),
                 }}
             />
