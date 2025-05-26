@@ -1,6 +1,9 @@
+// app/_layout.tsx
+import { UserProvider } from "@/lib/UserContext";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
+import { useColorScheme } from "react-native";
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({
@@ -11,6 +14,8 @@ export default function RootLayout() {
         "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
     });
 
+    const colorScheme = useColorScheme();
+
     useEffect(() => {
         if (error) throw error;
     }, [error]);
@@ -19,5 +24,22 @@ export default function RootLayout() {
         return null;
     }
 
-    return <Stack />;
+    return (
+        <UserProvider>
+            <Stack
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor:
+                            colorScheme === "dark" ? "#1F2937" : "#FFFFFF",
+                    },
+                    headerTintColor:
+                        colorScheme === "dark" ? "#FFFFFF" : "#000000",
+                    contentStyle: {
+                        backgroundColor:
+                            colorScheme === "dark" ? "#111827" : "#F9FAFB",
+                    },
+                }}
+            />
+        </UserProvider>
+    );
 }
